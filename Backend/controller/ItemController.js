@@ -21,6 +21,7 @@ class ItemController{
             let name = req.body.name;
             let iv = createIv().toString();
             console.log("IV je "+iv)
+            console.log("Email "+req.body.email +" Password "+req.body.password);
             let email = encrypt(req.body.email,iv);
             let password = encrypt(req.body.password,iv);
             console.log(name+ " "+ email +" " + password+" "+iv)

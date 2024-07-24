@@ -47,6 +47,8 @@ export default function Dashboard() {
     };
     const HandleAdd=async()=>{
       let result = await AddData(token,nameIn,mailIn,passIn);
+      console.log("AAAAA "+result)
+      debugger
       setNames(result);
     }
     const handleFunUpdate=async(idTemp,funTemp)=>{

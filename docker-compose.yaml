@@ -15,23 +15,32 @@ services:
   mysql:
     image: mysql:8.0
     restart: always
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_ROOT_PASSWORD: your_strong_password
       MYSQL_DATABASE: passwordmanager
       MYSQL_USER: db_user
       MYSQL_PASSWORD: db_password
     ports:
-      - "3306:3306"
+      - "3306:3306" 
     volumes:
-      - ./passwordmanager.sql:/docker-entrypoint-initdb.d/passwordmanager.sql 
+      - ./MySql/passwordmanager.sql:/docker-entrypoint-initdb.d/0_init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
 
   backend:
     build:
       context: ./Backend
       dockerfile: Dockerfile 
+    container_name: backend
     env_file:
       - ./Backend/.env 
     ports:
       - '80:80'
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy

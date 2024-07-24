@@ -1,5 +1,6 @@
 const Crypto = require('crypto');
-console.log(process.env.KEY)
+require('dotenv').config();
+
 module.exports.randomString = (size = 21) => {
     return Crypto
         .randomBytes(size)
@@ -8,14 +9,15 @@ module.exports.randomString = (size = 21) => {
 };
 
 module.exports.encrypt = (text,iv) => {
-    const cipher = Crypto.createCipheriv('aes-256-cbc', Buffer.from(process.env.KEY, 'hex'), Buffer.from(iv, 'hex'));
+    console.log("Key " +process.env.key)
+    const cipher = Crypto.createCipheriv('aes-256-cbc', Buffer.from(process.env.key, 'hex'), Buffer.from(iv, 'hex'));
     let encrypted = cipher.update(text, 'utf8', 'hex');
     encrypted += cipher.final('hex');
     return encrypted;
 };
 
 module.exports.decrypt = (encryptedText,iv) => {
-    const decipher = Crypto.createDecipheriv('aes-256-cbc', Buffer.from(process.env.KEY, 'hex'), Buffer.from(iv, 'hex'));
+    const decipher = Crypto.createDecipheriv('aes-256-cbc', Buffer.from(process.env.key, 'hex'), Buffer.from(iv, 'hex'));
     let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
     return decrypted;

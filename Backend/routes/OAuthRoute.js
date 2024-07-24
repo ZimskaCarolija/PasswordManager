@@ -4,7 +4,7 @@ const passport = require('passport');
 const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 const jwt = require('jsonwebtoken');
 const { CreateJWT } = require('../controller/UserController');
-
+require('dotenv').config();
 passport.use(new GoogleStrategy({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,

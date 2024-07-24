@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/User")
 const {returnById} = require("../controller/UserController")
+require('dotenv').config();
 class Validator{
     static isEmpty=(val)=>{
         if (val == null || val == '' || val == undefined)
@@ -25,8 +26,9 @@ class Validator{
             if (err) {
                 return res.status(403).json({ error: 'Forbidden' });
             }
-    
+            console.log("####### "+decoded.id + "   $$$$$"+JSON.stringify(decoded))
             req.user = decoded.id.id; 
+           
             next(); 
         });
     };

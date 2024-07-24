@@ -8,7 +8,7 @@ const ReturnNames = async (token) => {
         'jwt': `${token}` 
       }
     });
-    debugger
+    console.log("DATA : " + JSON.stringify(res.data));
     return res.data; 
   } catch (error) {
     console.error('Error calling ReturnAllName', error);
@@ -30,6 +30,9 @@ const AddData = async (token, name, email, pass) => {
         }
       }
     );
+    
+    console.log("DATA : " + res.data);
+    debugger
     return res.data;
   } catch (error) {
     console.error('Error calling Add data', error);

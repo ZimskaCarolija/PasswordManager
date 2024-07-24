@@ -2,18 +2,21 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const { createSecToken } = require('../util/HelpFunctions');
 const sendeMail = require('../util/email')
+require('dotenv').config();
 const CreateJWT = async (data) => {
     const email = data.email;
-    const acces_token = data.acces_token;
-    const id = await User.findOne({attributes:['id'],where:{email:email}})
+    const acces_token = data.access_token;
+    console.log("&&&&&&&& "+email +"    "+acces_token)
+    let id = await User.findOne({attributes:['id'],where:{email:email}})
     if(id == null)
     {
-       const user = await User.create({email:email,acces_token:acces_token})
-       const id = await User.findOne({attributes:['id'],where:{email:email}})
+       const user = await User.create({email:email,access_token:acces_token})
+        id = await User.findOne({attributes:['id'],where:{email:email}})
        if(id == null)
         throw new Error("Uer not found")
     }
-    const jwtPayload = {id:id,email:email,acces_token:acces_token}
+    console.log("^^^^^^^"+id)
+    const jwtPayload = {id:id,email:email,access_token:acces_token}
     const jwtOptions = {
         expiresIn: '1d' // token duration
     };

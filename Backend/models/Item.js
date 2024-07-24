@@ -26,9 +26,9 @@ const Item = sequelize.define('Item', {
         defaultValue: "",
     }
 }, {
-    indexes: [],
+    tableName: 'Item',
+    indexes: [], 
 });
-
 
 Item.belongsTo(User, { foreignKey: { allowNull: false } });
 User.hasMany(Item, { foreignKey: { allowNull: false } });

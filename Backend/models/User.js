@@ -1,48 +1,44 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../util/database')
-const {randomString}  =require('../util/HelpFunctions')
+const sequelize = require('../util/database');
+const { randomString } = require('../util/HelpFunctions');
+
 const User = sequelize.define(
     'User',
     {
-        id:
-        {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
         },
-        email:
-        {
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },
-        password:
-        {
-            type:DataTypes.INTEGER,
-            allowNull:true
+        password: {
+            type: DataTypes.STRING, 
+            allowNull: true,
+            defaultValue: null
         },
-        securityTime:
-        {
-            type:DataTypes.TIME,
-            allowNull:true,
-            default:Date.now()
+        securityTime: {
+            type: DataTypes.DATE, 
+            allowNull: true,
+            defaultValue: Sequelize.NOW
         },
-        securityToken:
-        {
-            type:DataTypes.STRING,
-            allowNull:true,
-            default:randomString()
-        },accesss_token:
-        {
-            type:DataTypes.STRING,
-            allowNull:true
+        securityToken: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            //defaultValue:randomString()
+        },
+        access_token: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
-
-
+    },
+    {
+        indexes: [], 
     }
-    , {
-        indexes: [],
-    }
-  );
-  module.exports = User
+);
+
+module.exports = User;
